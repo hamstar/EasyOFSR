@@ -6,7 +6,7 @@ It takes the HTML link for a file on and online file storage site, and gets the 
 
 ## Requires
 
-This class requires Sean Hubers curl wrapper and SimpleHMTLDom.
+This class requires [Sean Hubers](http://github.com/shuber/) [curl wrapper](http://github.com/shuber/curl) and the [PHP Simple HMTL DOM Parser](http://simplehtmldom.sourceforge.net/index.htm).
 
 ## Usage
 
