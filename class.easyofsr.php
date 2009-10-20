@@ -11,7 +11,7 @@
 	* @author	Robert McLeod
 	* @copyright	Copyright 2009 Robert McLeod
 	* @licence	GNU GPL
-	* @version	0.1
+	* @version	0.1a
 	*/
 
 	// Include our requires
