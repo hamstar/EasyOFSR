@@ -1,9 +1,30 @@
 <?php
 
+	/**
+	* EasyOFSR class
+	*
+	* Retrieves 'premium' links from online file storage websites
+	*
+	* The host class files (i.e. osfr.rapidshare.inc) must be kept in
+	* the same directory as this file.
+	*
+	* @author	Robert McLeod
+	* @copyright	Copyright 2009 Robert McLeod
+	* @licence	GNU GPL
+	* @version	0.1
+	*/
+
+	// Include our requires
 	require 'curl.php';
 	require 'htmldom.php';
-	require 'ofsr.hotfile.inc';
-	require 'ofsr.rapidshare.inc';
+
+	// Include all our host classes
+	foreach(scandir(getcwd()) as $fn) {
+		if (substr($fn, 0, 4) == 'osfr' && substr($fn, -3) == 'inc') {
+			require $fn;
+		}
+	}
+	
 
 	/* Main class */
 	class OFSR {
