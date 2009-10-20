@@ -4,6 +4,8 @@ A PHP class to get links from online file storage websites. An easy online file 
 
 It takes the HTML link for a file on and online file storage site, and gets the premium link by logging in with your user credentials.
 
+Please note this is currently version 0.1 ALPHA and is not functional.
+
 ## Requires
 
 This class requires [Sean Hubers](http://github.com/shuber/) [curl wrapper](http://github.com/shuber/curl) and the [PHP Simple HMTL DOM Parser](http://simplehtmldom.sourceforge.net/index.htm).
