@@ -25,11 +25,49 @@
 		}
 	}
 	
+	// Check for the hosts classes so that
+	// we may add the host names to our known hosts
+	foreach ( get_declared_classes() as $class) {
+		if( substr($class, 0, 4) == 'OFS_') ) {
+			if($class != 'OFS_Object') {
+				$known_hosts[] = str_replace('OFS_', '', $class);
+			}
+		}
+	}
+	
+	// Define this so we can use the constant in the class
+	define('KNOWN_HOSTS', serialize($known_hosts));
 
 	/* Main class */
 	class OFSR {
 
-		function __construct() {}
+		function __construct() {
+			$this->known_hosts = unserialize(KNOWN_HOSTS);
+		}
+
+		/**
+		 * Checks if the host is known to the class, I.E. if we have
+		 * a host module that can handle the host given.
+		 * 
+		 * @param string $dsn Username/password pair for a host
+		 * 
+		 * @return object
+		 */
+		public function dsn($dsn) {
+			
+			if ( preg_match('#(?<user>.*):(?<pass>.*)@(?<host>.*)#', $dsn, $m) ) {
+				if( array_search($m['host'], $this->known_hosts) === FALSE ) {
+					die('Not a known host.');
+				} else {
+					$this->user = $m['user'];
+					$this->pass = $m['pass'];
+					$this->host = $m['host'];
+				}
+			}
+			
+			return $this;
+		
+		}
 
 		/**
 		* Gets the object for urls given to it
@@ -45,15 +83,11 @@
 				$urls[] = $urls;
 			}
 			
-			// Start curl
-			$c = new Curl;
-			
 			// Run through each URL
 			foreach ($urls as $u) {
 
 				// Get the host and html from the url
 				$host = parse_url($u, PHP_URL_HOST);
-				$html = $c->get($u)->body;
 				
 				// If the class for this host exists run it
 				// or return the default class
