@@ -97,8 +97,6 @@
 				// Run through all the files
 				$count = 0;
 				foreach ( $links as $l ) {
-					// Add cookie check
-					$l .= '?cookiecheck=0';
 					
 					// Watch for multiple links on one page
 					if($count == 0) {
