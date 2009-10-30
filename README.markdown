@@ -12,7 +12,7 @@ Please note this is currently version 0.3 beta so don't expect everything to wor
 
 ## Requires
 
-This class requires [Sean Hubers](http://github.com/shuber/) [curl wrapper](http://github.com/shuber/curl) and the [PHP Simple HMTL DOM Parser](http://simplehtmldom.sourceforge.net/index.htm).
+This class requires [Sean Hubers](http://github.com/shuber/) [curl wrapper](http://github.com/shuber/curl) and the [PHP Simple HMTL DOM Parser](http://simplehtmldom.sourceforge.net/index.htm).  It also requires the [PHP_RSGet](http://github.com/hamstar/PHP_RSGet) class for pulling links from rapidshare.
 
 ## Usage
 
