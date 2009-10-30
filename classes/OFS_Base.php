@@ -71,7 +71,7 @@
 			if($this->is_logged_in()) {
 				return true;
 			} else {
-				die('Login failed');
+				die('Failed to login to ' . $this->host);
 			}
 			
 		}
