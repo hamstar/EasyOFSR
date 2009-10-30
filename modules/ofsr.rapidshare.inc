@@ -9,8 +9,11 @@
 	* @author Robert McLeod
 	* @copyright Copyright 2009 Robert McLeod
 	* @licence http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
-	* @version 0.1a
+	* @version 0.2a
 	*/
+ 
+	// Need to include the RSGet class
+	require '../libs/PHP_RSGet.php';
  
 	/* Class for hotfile.com */
 	class OFS_rapidshare_com extends OFS_Base {
@@ -24,54 +27,52 @@
 		protected $loginMethod = 'post';
 		protected $loginString = "login={USER}&password={PASS}&uselandingpage=1";
 		
-		private function getLinks() {
+		private function returnObjects() {
 			
-			// Set the api url
-			$apiUrl = 'https://api.rapidshare.com/cgi-bin/rsapi.cgi?sub=checkfiles_v1&';
+			// Start our RS Get object
+			$rs = new PHP_RSGet;
 			
-			$file_ids = '';
-			$file_names = '';
+			// Get the links
+			$links = $rs->getLinks($this->urls);
 			
-			// Run through each URL given
-			foreach($this->urls as $u) {
-				
-				// Run a preg_match to get the file id and name
-				if ( preg_match( '#/(?<fid>\d+)/(?<fn>.+)$#', $u, $m ) ) {
+			// Run through all the link data
+			foreach ( $links as $lo ) {
 			
-					// Set up a linear array
-					$file_ids .= $m['fid'] . ',';
-					$file_names .= $m['fn'] . ',';
+				// No link is an indicator of erroneous file
+				if ( !is_string( $lo->link ) ) {
 					
-				} else {
-					// Some kind of fail message here
+					// Build our array
+					$to = array(
+						'live' => false,
+						'error_message' => $lo->status_msg,
+						'link' => 'http://www.rapidshare.com/files/' . $lo->fid . '/' . $lo->fn
+					);
+					
+					// Submit the array to the object
+					$objects[] = new OFS_LinkObject( $to );
+					
+					// Next item in the array
+					continue;
 				}
-			
-			} // end foreach
-			
-			// Cut off the extra commas
-			$file_ids = substr($file_ids, -1);
-			$file_names = substr($file_names, -1);
-			
-			// Build the URL
-			$url = 'files=' . $file_ids . '&filenames=' . $file_names;
-			
-			// Get the CSV output of the rsapi
-			$csv = $this->c->get($url)->body;
-			
-			// Split the lines by newline character
-			$lines = explode("\n", $csv);
-			
-			foreach($lines as &$l) {
 				
-				$mini = explode(',', $l);
+				// The url was good build our array
+				$to = array(
+					'live' => true,
+					'link' => $lo->link,
+					'size' => $lo->size,
+					'host' => 'rapidshare.com'
+				);
 				
+				// Drop the array into the object
+				$objects[] = new OFS_LinkObject( $to );
 				
-				$url = 'http://rs'
-				. $mini[3] . $mini[5]
-				. '.rapidshare.com/files/'
-				. $mini[0] .'/' . $mini[1];
+			} // End the foreach
 			
-		}
-	}
+			// Drop all the objects
+			return $objects;
+			
+		} // End the function
+		
+	} // end the class
 
 ?>
