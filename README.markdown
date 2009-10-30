@@ -7,8 +7,8 @@ It takes the HTML link for a file on and online file storage site, and gets the 
 Please note this is currently version 0.3 beta so don't expect everything to work.
 
 ### Issues
-* The hotfile site changed so proper links to file aren't returned but that should be fixed soon.
-* The rapidshare module is still under construction.
+* Upgraded the hotfile module to 0.4a as yet untested.  Should handle links properly now.
+* The rapidshare module is version 0.2a should work but as yet untested.
 
 ## Requires
 

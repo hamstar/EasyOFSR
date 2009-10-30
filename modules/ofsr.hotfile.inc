@@ -9,7 +9,7 @@
 	* @author Robert McLeod
 	* @copyright Copyright 2009 Robert McLeod
 	* @licence http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
-	* @version 0.4b
+	* @version 0.4a
 	*/
  
 	/* Class for hotfile.com */
