@@ -9,7 +9,7 @@
 	* @author Robert McLeod
 	* @copyright Copyright 2009 Robert McLeod
 	* @licence http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
-	* @version 0.3b
+	* @version 0.4b
 	*/
  
 	/* Class for hotfile.com */
@@ -128,6 +128,28 @@
 		}
 		
 		/**
+		* Get the links that the current links redirect to
+		*
+		* @return void
+		*/
+		private function getRedirectLinks() {
+		
+			// Set curl to not follow location
+			$this->c->option['followlocation'] = false;
+			
+			// Get the real link for each redir link
+			foreach ( $this->livefiles as &$lf ) {
+				// Get the location into the array
+				$lf['link'] = $this->c->get($lf['link'])->headers['location'];
+				
+			}
+		
+			// Reset the curl option
+			$this->c->option['followlocation'] = true;
+		
+		}
+		
+		/**
 		 * This function calls the other functions to do their thing
 		 * and then returns an array of link objects
 		 * 
@@ -138,6 +160,7 @@
 			// Run the functions to get the links
 			$this->checkLinks();
 			$this->getDirectFiles();
+			$this->getRedirectLinks();
 			
 			// Run through the livefiles array
 			foreach ( $this->livefiles as $lf ) {
