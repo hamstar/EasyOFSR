@@ -13,7 +13,7 @@
 	*/
  
 	// Need to include the RSGet class
-	require '../libs/PHP_RSGet.php';
+	require 'libs/PHP_RSGet.php';
  
 	/* Class for hotfile.com */
 	class OFS_rapidshare_com extends OFS_Base {
@@ -26,6 +26,7 @@
 		protected $loginUrl = 'https://ssl.rapidshare.com/cgi-bin/premiumzone.cgi';
 		protected $loginMethod = 'post';
 		protected $loginString = "login={USER}&password={PASS}&uselandingpage=1";
+		protected $host = "rapidshare.com";
 		
 		private function returnObjects() {
 			
