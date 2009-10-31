@@ -23,6 +23,7 @@
 		protected $loginUrl = 'http://hotfile.com/login.php';
 		protected $loginMethod = 'post';
 		protected $loginString = "user={USER}&pass={PASS}";
+		protected $host = 'hotfile.com';
 		
 		/**
 		 * Check the hotfile links with hotfiles own link checker.  Puts
